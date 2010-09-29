@@ -1,4 +1,10 @@
+import sys
+import os.path
 import plistlib
+
+def main(file):
+    if os.path.exists(file):
+        print get_artists(file)
 
 def get_artists(file):
     '''Reads itunes xml file and extracs artists'''
@@ -18,3 +24,6 @@ def get_artists(file):
             artists.append(artist)
     
     return artists
+
+if __name__ == "__main__":
+    main(sys.argv[1])
