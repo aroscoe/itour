@@ -27,19 +27,15 @@ def get_artists(file):
     tracks = itunes["Tracks"]
     
     # Get all artists
-    all_artists = []
+    artists = []
     for track in tracks.values():
         artist = track.get("Artist")
         if artist:
             artist = artist.encode("utf8")
-            all_artists.append(artist)
+            artists.append(artist)
     
     # Remove duplicates
-    artists = []
-    # TODO: use a Set
-    for artist in sorted(all_artists):
-        if (artists == [] or artist != artists[-1]) and artist != None:
-            artists.append(artist)
+    artists = sorted(set(artists))
     
     return artists
 
