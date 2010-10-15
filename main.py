@@ -12,14 +12,13 @@ def main(file):
     if os.path.exists(file):
         artists = get_artists(file)
         
-        concerts = []
-        for i in range(0, len(artists), 50):
-            new_concerts = bandsintown.Event.search(artists=artists[i:i+50],
-                radius=10, per_page=10, location="Brooklyn, NY")
-            if new_concerts:
-                concerts += new_concerts
-        print concerts
-
+        concerts = get_concerts(artists)
+        
+        if concerts:
+            print concerts
+        else:
+            print "::: NO CONCERTS :::"
+        
 def get_artists(file):
     '''Reads itunes xml file and extracs artists'''
     
@@ -38,6 +37,15 @@ def get_artists(file):
     artists = sorted(set(artists))
     
     return artists
+
+def get_concerts(artists, start_date=None, end_date=None):
+    concerts = []
+    for i in range(0, len(artists), 50):
+        new_concerts = bandsintown.Event.search(artists=artists[i:i+50],
+            radius=10, per_page=10, location="Brooklyn, NY")
+        if new_concerts:
+            concerts += new_concerts
+    return concerts
 
 if __name__ == "__main__":
     main(sys.argv[1])
