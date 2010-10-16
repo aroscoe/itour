@@ -1,11 +1,15 @@
+import sys
 import plistlib
 from datetime import datetime
 
 import bandsintown
 
-from settings import APP_ID
-
-bandsintown.app_id = APP_ID
+try:
+    from settings import APP_ID
+    bandsintown.app_id = APP_ID
+except ImportError:
+    print "error: You must setup a settings file with your APP_ID"
+    sys.exit()
 
 def get_artists(file):
     '''Reads itunes xml file and extracs artists'''
