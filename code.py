@@ -7,13 +7,13 @@ import web
 import itour
 
 urls = (
-  '/', 'index'
+  '/([0-9\-]+/[0-9\-]+)?/?$', 'index'
 )
 
 app = web.application(urls, globals())
 
 class index:
-    def POST(self):
+    def POST(self, dates):
         data = web.input()
         
         location = data.location
@@ -21,7 +21,13 @@ class index:
         
         artists = [artist.strip() for artist in artists.split(",")]
         
-        events = itour.get_concerts(artists, location)
+        if dates:
+            dates = dates.split("/")
+            start_date = dates[0]
+            end_date = dates[1]
+            events = itour.get_concerts(artists, location, start_date, end_date)
+        else:
+            events = itour.get_concerts(artists, location)
         
         concerts = []
         [concerts.append(event.json_data) for event in events]
