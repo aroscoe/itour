@@ -30,7 +30,7 @@ def get_artists(file):
     
     return artists
 
-def get_concerts(artists, location='Brooklyn, NY',start_date=None, end_date=None):
+def get_concerts(artists, location='Brooklyn, NY', start_date=None, end_date=None):
     concerts = []
     for i in range(0, len(artists), 50):
         new_concerts = bandsintown.Event.search(artists=artists[i:i+50],

@@ -9,6 +9,7 @@ import test
 
 def main():
     parser = OptionParser()
+    parser.add_option("-a", "--artists", dest="artists", help="comma separated list of artists")
     parser.add_option("-f", "--file", dest="filename", help="read data from FILENAME")
     parser.add_option("-t", "--test",
                       action="store_true", dest="test_mode",
@@ -19,6 +20,8 @@ def main():
     
     if options.test_mode:
         artists = test.artists
+    elif options.artists:
+        artists = [artist.strip() for artist in options.artists.split(",")]
     elif options.filename:
         if os.path.exists(options.filename):
             artists = itour.get_artists(options.filename)
