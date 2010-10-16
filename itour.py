@@ -16,16 +16,22 @@ def get_artists(file):
     artists = []
     for track in tracks.values():
         artist = track.get("Artist")
-        if artist:
-            artist = artist.encode("utf8")
-            artists.append(artist)
+        artists.append(artist)
     
     # Remove duplicates
     artists = sorted(set(artists))
     
     return artists
 
-def get_concerts(artists, location='Brooklyn, NY', start_date=None, end_date=None):
+def get_concerts(unencoded_artists, location='Brooklyn, NY', start_date=None, end_date=None):
+    
+    # Check to if artist is already unicode
+    artists = []
+    for artist in unencoded_artists:
+        if isinstance(artist, unicode):
+            artist = artist.encode("utf8")
+        artists.append(artist)
+    
     search_args = {
         'radius': 10,
         'per_page': 10,
