@@ -1,0 +1,3 @@
+[submodule "bandsintown"]
+	path = bandsintown
+	url = git@github.com:aroscoe/bandsintown.git

@@ -2,7 +2,7 @@ import sys
 import plistlib
 from datetime import datetime
 
-import bandsintown
+from bandsintown import bandsintown
 
 try:
     from settings import APP_ID
