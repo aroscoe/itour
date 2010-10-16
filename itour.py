@@ -26,10 +26,21 @@ def get_artists(file):
     return artists
 
 def get_concerts(artists, location='Brooklyn, NY', start_date=None, end_date=None):
+    search_args = {
+        'radius': 10,
+        'per_page': 10,
+        'location': location
+    }
+    
+    if start_date:
+        date = start_date
+        if end_date: date += ",%s" % end_date
+        search_args['date'] = date
+    
     concerts = []
     for i in range(0, len(artists), 50):
-        new_concerts = bandsintown.Event.search(artists=artists[i:i+50],
-            radius=10, per_page=10, location=location)
+        search_args['artists'] = artists[i:i+50]
+        new_concerts = bandsintown.Event.search(**search_args)
         if new_concerts:
             concerts += new_concerts
     
