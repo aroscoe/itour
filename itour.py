@@ -4,12 +4,7 @@ from datetime import datetime
 
 from bandsintown import bandsintown
 
-try:
-    from settings import APP_ID
-    bandsintown.app_id = APP_ID
-except ImportError:
-    print "error: You must setup a settings file with your APP_ID"
-    sys.exit()
+bandsintown.app_id = 'itour'
 
 def get_artists(file):
     '''Reads itunes xml file and extracs artists'''
