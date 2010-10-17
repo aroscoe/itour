@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 
+from os.path import dirname, realpath
+import sys
 import json
 
 import web
+
+# Put root dir on the PYTHONPATH
+current_dir = realpath(dirname(__file__))
+sys.path.insert(0, dirname(dirname(current_dir)))
 
 import itour
 
@@ -34,5 +40,5 @@ class index:
         
         web.header('Content-Type', 'application/json')
         return json.dumps(concerts)
-        
+
 if __name__ == "__main__": app.run()

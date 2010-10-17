@@ -4,6 +4,10 @@ import sys
 import os.path
 from optparse import OptionParser
 
+# Put root dir on the PYTHONPATH
+current_dir = os.path.realpath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.dirname(os.path.dirname(current_dir)))
+
 import itour
 import test
 

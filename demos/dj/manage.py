@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from os.path import abspath, dirname, split
+from os.path import dirname
 import sys
 
 from django.conf import settings
@@ -16,7 +16,7 @@ except ImportError:
 # setup the environment before we start accessing things in the settings.
 setup_environ(settings_mod)
 
-sys.path.insert(0, split(settings.PROJECT_ROOT)[0])
+sys.path.insert(0, dirname(dirname(settings.PROJECT_ROOT)))
 
 if __name__ == "__main__":
     execute_from_command_line()
