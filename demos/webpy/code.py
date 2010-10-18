@@ -5,6 +5,7 @@ import sys
 import json
 
 import web
+import pystache
 
 # Put root dir on the PYTHONPATH
 current_dir = realpath(dirname(__file__))
@@ -13,12 +14,19 @@ sys.path.insert(0, dirname(dirname(current_dir)))
 import itour
 
 urls = (
-  '/([0-9\-]+/[0-9\-]+)?/?$', 'index'
+    '/([0-9\-]+/[0-9\-]+)?/?$', 'index'
 )
 
 app = web.application(urls, globals())
 
+class CalendarView(pystache.View):
+    template_path = current_dir
+
 class index:
+    def GET(self, dates):
+        context = {'person': 'Felix'}
+        return CalendarView(context=context).render()
+    
     def POST(self, dates):
         data = web.input()
         
